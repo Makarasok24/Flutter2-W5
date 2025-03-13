@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:w5/Exercise2/models/color_counter.dart';
 import 'package:w5/Exercise2/screen/color_tap_screen.dart';
 import 'package:w5/Exercise2/screen/statistics_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Home()),
+    ChangeNotifierProvider(
+      create: (context) => ColorCounter(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(body: Home()),
+      ),
     ),
   );
 }
