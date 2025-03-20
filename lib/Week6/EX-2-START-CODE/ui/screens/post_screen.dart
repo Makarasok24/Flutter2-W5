@@ -18,7 +18,7 @@ class PostScreen extends StatelessWidget {
         actions: [
           IconButton(
             // 2- Fetch the post
-            onPressed: () => {postProvider.fetchPost(45)},
+            onPressed: () => {postProvider.fetchPost()},
             icon: const Icon(Icons.update),
           ),
         ],
@@ -44,8 +44,27 @@ class PostScreen extends StatelessWidget {
         return Text('Error: ${postValue.error}'); // display a error
 
       case AsyncValueState.success:
-        return PostCard(post: postValue.data!); // display the post
+        final posts = postValue.data!;
+        return posts.isEmpty
+            ? const Text("No post now")
+            : PostsList(posts: posts); // display the post
     }
+  }
+}
+
+class PostsList extends StatelessWidget {
+  final List<Post> posts;
+
+  const PostsList({super.key, required this.posts});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: posts.length,
+      itemBuilder: (context, index) {
+        return PostCard(post: posts[index]);
+      },
+    );
   }
 }
 
